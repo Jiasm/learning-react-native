@@ -4,20 +4,28 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View
-} from 'react-native';
+} from 'react-native'
 
 export default class HelloWorld extends Component {
-  render() {
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      test: 233
+    }
+  }
+
+  render () {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome to React Native!{this.state.statusCode}
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
@@ -27,7 +35,15 @@ export default class HelloWorld extends Component {
           Cmd+D or shake for dev menu
         </Text>
       </View>
-    );
+    )
+  }
+
+  async componentDidMount () {
+    let res = await fetch('https://app.blued.cn/liverank/data?type=richanchor&period=day')
+    let data = await res.json()
+    this.setState({
+      statusCode: data.code
+    })
   }
 }
 
@@ -36,18 +52,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
-  },
-});
+    marginBottom: 5
+  }
+})
 
-AppRegistry.registerComponent('HelloWorld', () => HelloWorld);
+AppRegistry.registerComponent('HelloWorld', () => HelloWorld)
