@@ -40,7 +40,7 @@ export default class List extends Component {
     } = this.state
     if (lock) return
 
-    let result = await fetch(`http://localhost:8080/live/onair?type=${type}&page=${pn}`)
+    let result = await fetch(`http://172.20.29.70:8080/live/onair?type=${type}&page=${pn}`)
     result = await result.json()
 
     if (pn === 1) {
